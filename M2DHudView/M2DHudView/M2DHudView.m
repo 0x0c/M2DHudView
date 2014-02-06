@@ -150,21 +150,24 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	return self;
 }
 
-- (void)show:(UIView *)view afterDelay:(NSTimeInterval)delay
+- (void)show:(UIView *)view
+{
+	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+	[[window subviews][0] addSubview:self];
+	[self transform];
+}
+
+- (void)show:(UIView *)view dismissAfterDelay:(NSTimeInterval)delay
 {
 	_delay = delay;
-	[view addSubview:self];
-	[self transform];
+	[self show:view];
 	[self performSelector:@selector(dismiss) withObject:nil afterDelay:delay];
 }
 
 - (void)show:(UIView *)view target:(id)target request:(NSURLRequest *)request
 {
 	self.delegate = target;
-	
-	[view addSubview:self];
-	[self transform];
-	
+	[self show:view];
 	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	if (connection) {
 		if ([self.delegate respondsToSelector:@selector(M2DHVConnection:connectionDidStartLoading:)]) {
@@ -173,19 +176,10 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	}
 }
 
-- (void)show:(UIView *)view
-{
-	[view addSubview:self];
-	[self transform];
-}
-
 - (void)show:(UIView *)view notificationWithTarget:(id)target
 {
 	self.delegate = target;
-	
-	[view addSubview:self];
-	[self transform];
-	
+	[self show:view];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDidCatch) name:M2DHudViewNotification object:self.delegate];
 }
 
@@ -323,17 +317,22 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 
 - (void)lockUserInteraction
 {
-	CGRect rect = [[UIScreen mainScreen] bounds];
-	self.frame = rect;
-	UIView *view = [[UIView alloc] initWithFrame:rect];
-	view.backgroundColor = [UIColor blackColor];
-	view.alpha = M2DHudViewBackgroundAlpha - 0.15;
-	[self addSubview:view];
-	[self sendSubviewToBack:view];
+	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+	self.frame = [[window subviews][0] bounds];
 	self.clipsToBounds = NO;
 	mainView_.center = self.center;
 	backgroundView_.layer.borderColor = [UIColor whiteColor].CGColor;
 	backgroundView_.layer.borderWidth = 1;
+}
+
+- (void)showBackgroundView
+{
+	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+	UIView *view = [[UIView alloc] initWithFrame:[[window subviews][0] bounds]];
+	view.backgroundColor = [UIColor blackColor];
+	view.alpha = M2DHudViewBackgroundAlpha - 0.15;
+	[self addSubview:view];
+	[self sendSubviewToBack:view];
 }
 
 #pragma mark NSURLConnection delegate method

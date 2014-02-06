@@ -36,7 +36,7 @@ typedef NSInteger M2DHudViewTransition;
 - (id)initWithStyle:(M2DHudViewStyle)style;
 - (id)initWithTemplate:(UIImage *)image title:(NSString *)title;
 - (void)show:(UIView *)view;
-- (void)show:(UIView *)view afterDelay:(NSTimeInterval)delay;
+- (void)show:(UIView *)view dismissAfterDelay:(NSTimeInterval)delay;
 - (void)show:(UIView *)view target:(id)target request:(NSURLRequest *)request;
 - (void)show:(UIView *)view notificationWithTarget:(id)target;
 - (void)dismiss;
@@ -46,6 +46,7 @@ typedef NSInteger M2DHudViewTransition;
 - (void)notificationDidCatch;
 - (void)transform;
 - (void)lockUserInteraction;
+- (void)showBackgroundView;
 
 @end
 
