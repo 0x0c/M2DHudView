@@ -16,6 +16,16 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 #define M2DHudViewSuccessImagePath [NSString stringWithFormat:@"%@/success.png", [[NSBundle mainBundle] pathForResource:@"M2DHudView" ofType:@"bundle"]]
 #define M2DHudViewErrorImagePath [NSString stringWithFormat:@"%@/error.png", [[NSBundle mainBundle] pathForResource:@"M2DHudView" ofType:@"bundle"]]
 
+@interface M2DHudView ()
+{
+	UIView *mainView_;
+	UIView *contentView_;
+	UIView *backgroundView_;
+	BOOL dismiss;
+}
+
+@end
+
 @implementation M2DHudView
 
 - (id) init
@@ -326,24 +336,21 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 }
 
 #pragma mark NSURLConnection delegate method
-- (void)connection:(NSURLConnection *)connection
-didReceiveResponse:(NSURLResponse *)response
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
 	if ([self.delegate respondsToSelector:@selector(M2DHVConnection:connection:didReceiveResponse:)]) {
 		[self.delegate M2DHVConnection:self connection:connection didReceiveResponse:response];
 	}
 }
 
-- (void)connection:(NSURLConnection *)connection
-	didReceiveData:(NSData *)data
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
 	if ([self.delegate respondsToSelector:@selector(M2DHVConnection:connection:didReceiveData:)]) {
 		[self.delegate M2DHVConnection:self connection:connection didReceiveData:data];
 	}
 }
 
-- (void)connection:(NSURLConnection *)connection
-  didFailWithError:(NSError *)error
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	if ([self.delegate respondsToSelector:@selector(M2DHVConnection:connection:didFailWithError:)]) {
 		[self.delegate M2DHVConnection:self connection:connection didFailWithError:error];

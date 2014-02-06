@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define M2DHudViewNotification @"M2DHudViewNotification"
+static NSString *const M2DHudViewNotification = @"M2DHudViewNotification";
 
 typedef enum{
 	M2DHudViewStyleSuccess = 0,
@@ -27,13 +27,6 @@ enum{
 typedef NSInteger M2DHudViewTransition;
 
 @interface M2DHudView : UIView
-{
-	UIView *mainView_;//最下層のView
-	UIView *contentView_;//TextLabelやImageViewを配置するView
-	UIView *backgroundView_;//背景
-@private
-	BOOL dismiss;
-}
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) NSInteger delay;
