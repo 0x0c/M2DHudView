@@ -76,7 +76,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:M2DHudViewSuccessImagePath]];
 				image.frame = CGRectMake(0, 0, 80, 80);
 				image.center = contentView_.center;
-				[self addSubview:image];
+				[contentView_ addSubview:image];
 				UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.center = CGPointMake(image.center.x, image.center.y + 55);
@@ -85,14 +85,14 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				label.backgroundColor = [UIColor clearColor];
 				label.font = [UIFont fontWithName:@"Helvetica" size:15];
 				label.font = [UIFont boldSystemFontOfSize:15];
-				[self addSubview:label];
+				[contentView_ addSubview:label];
 				break;
 			}
 			case M2DHudViewStyleError: {
 				UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:M2DHudViewSuccessImagePath]];
 				image.frame = CGRectMake(0, 0, 50, 50);
 				image.center = contentView_.center;
-				[self addSubview:image];
+				[contentView_ addSubview:image];
 				UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.center = CGPointMake(image.center.x, image.center.y + 55);
@@ -101,7 +101,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				label.backgroundColor = [UIColor clearColor];
 				label.font = [UIFont fontWithName:@"Helvetica" size:15];
 				label.font = [UIFont boldSystemFontOfSize:15];
-				[self addSubview:label];
+				[contentView_ addSubview:label];
 				break;
 			}
 			case M2DHudViewStyleLoading: {
@@ -109,7 +109,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				indicator.frame = CGRectMake(0, 0, 50.0, 50.0);
 				indicator.center = contentView_.center;
 				[indicator startAnimating];
-				[self addSubview:indicator];
+				[contentView_ addSubview:indicator];
 				UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.center = CGPointMake(indicator.center.x, indicator.center.y + 55);
@@ -118,7 +118,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				label.backgroundColor = [UIColor clearColor];
 				label.font = [UIFont fontWithName:@"Helvetica" size:15];
 				label.font = [UIFont boldSystemFontOfSize:15];
-				[self addSubview:label];
+				[contentView_ addSubview:label];
 				break;
 			}
 			default:
@@ -136,7 +136,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 		imageView.frame = CGRectMake(0, 0, 50, 50);
 		imageView.center = contentView_.center;
-		[self addSubview:imageView];
+		[contentView_ addSubview:imageView];
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 		label.textAlignment = NSTextAlignmentCenter;
 		label.center = CGPointMake(imageView.center.x, imageView.center.y + 55);
@@ -144,7 +144,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 		label.textColor = [UIColor whiteColor];
 		label.backgroundColor = [UIColor clearColor];
 		label.font = [UIFont fontWithName:@"Helvetica" size:15];
-		[self addSubview:label];
+		[contentView_ addSubview:label];
 	}
 	
 	return self;
@@ -177,7 +177,6 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 {
 	[view addSubview:self];
 	[self transform];
-	
 }
 
 - (void)show:(UIView *)view notificationWithTarget:(id)target
@@ -217,7 +216,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 			UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:M2DHudViewSuccessImagePath]];
 			image.frame = CGRectMake(0, 0, 50, 50);
 			image.center = contentView_.center;
-			[self addSubview:image];
+			[contentView_ addSubview:image];
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.center = CGPointMake(image.center.x, image.center.y + 55);
@@ -225,14 +224,14 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 			label.textColor = [UIColor whiteColor];
 			label.backgroundColor = [UIColor clearColor];
 			label.font = [UIFont fontWithName:@"Helvetica" size:15];
-			[self addSubview:label];
+			[contentView_ addSubview:label];
 			break;
 		}
 		case M2DHudViewStyleError: {
 			UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:M2DHudViewErrorImagePath]];
 			image.frame = CGRectMake(0, 0, 50, 50);
 			image.center = contentView_.center;
-			[self addSubview:image];
+			[contentView_ addSubview:image];
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.center = CGPointMake(image.center.x, image.center.y + 55);
@@ -240,7 +239,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 			label.textColor = [UIColor whiteColor];
 			label.backgroundColor = [UIColor clearColor];
 			label.font = [UIFont fontWithName:@"Helvetica" size:15];
-			[self addSubview:label];
+			[contentView_ addSubview:label];
 			break;
 		}
 		case M2DHudViewStyleLoading: {
@@ -248,7 +247,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 			indicator.frame = CGRectMake(0, 0, 50.0, 50.0);
 			indicator.center = contentView_.center;
 			[indicator startAnimating];
-			[self addSubview:indicator];
+			[contentView_ addSubview:indicator];
 			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 			label.textAlignment = NSTextAlignmentCenter;
 			label.center = CGPointMake(indicator.center.x, indicator.center.y + 55);
@@ -256,7 +255,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 			label.textColor = [UIColor whiteColor];
 			label.backgroundColor = [UIColor clearColor];
 			label.font = [UIFont fontWithName:@"Helvetica" size:15];
-			[self addSubview:label];
+			[contentView_ addSubview:label];
 			break;
 		}
 		default:
@@ -326,15 +325,15 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 {
 	CGRect rect = [[UIScreen mainScreen] bounds];
 	self.frame = rect;
+	UIView *view = [[UIView alloc] initWithFrame:rect];
+	view.backgroundColor = [UIColor blackColor];
+	view.alpha = M2DHudViewBackgroundAlpha - 0.15;
+	[self addSubview:view];
+	[self sendSubviewToBack:view];
+	self.clipsToBounds = NO;
 	mainView_.center = self.center;
-	
 	backgroundView_.layer.borderColor = [UIColor whiteColor].CGColor;
 	backgroundView_.layer.borderWidth = 1;
-}
-
-- (void)addSubview:(UIView *)view
-{
-	[contentView_ addSubview:view];
 }
 
 #pragma mark NSURLConnection delegate method
