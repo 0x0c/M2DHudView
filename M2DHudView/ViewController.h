@@ -10,4 +10,7 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)show:(id)sender;
+- (IBAction)showWithUserInteractionLock:(id)sender;
+
 @end
