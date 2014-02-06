@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
-static NSString *const M2DHudViewNotification = @"M2DHudViewNotification";
+extern NSString *const M2DHudViewNotification;
 
 typedef enum{
 	M2DHudViewStyleSuccess = 0,

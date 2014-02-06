@@ -7,8 +7,8 @@
 //
 
 #import "M2DHudView.h"
-#import <QuartzCore/QuartzCore.h>
 
+NSString *const M2DHudViewNotification = @"M2DHudViewNotification";
 static CGFloat const M2DHudViewEdgeSize = 160.;
 static NSTimeInterval const M2DHudViewAnimationDuration = 0.3;
 static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
@@ -326,8 +326,10 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 {
 	CGRect rect = [[UIScreen mainScreen] bounds];
 	self.frame = rect;
-	self.alpha = M2DHudViewBackgroundAlpha;
 	mainView_.center = self.center;
+	
+	backgroundView_.layer.borderColor = [UIColor whiteColor].CGColor;
+	backgroundView_.layer.borderWidth = 1;
 }
 
 - (void)addSubview:(UIView *)view
