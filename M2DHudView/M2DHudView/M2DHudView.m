@@ -33,7 +33,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	self = [super init];
 	if (self) {
 		_delay = 0;
-		self.frame = CGRectMake(0, 0, M2DHudViewEdgeSize , M2DHudViewEdgeSize );
+		self.frame = CGRectMake(0, 0, M2DHudViewEdgeSize , M2DHudViewEdgeSize);
 		self.backgroundColor = [UIColor clearColor];
 		mainView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, M2DHudViewEdgeSize , M2DHudViewEdgeSize )];
 		contentView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, M2DHudViewEdgeSize , M2DHudViewEdgeSize )];
