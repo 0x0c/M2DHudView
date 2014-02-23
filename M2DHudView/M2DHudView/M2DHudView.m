@@ -39,8 +39,8 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 		contentView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, M2DHudViewEdgeSize , M2DHudViewEdgeSize )];
 		backgroundView_ = [[UIView alloc] initWithFrame:CGRectMake(0, 0, M2DHudViewEdgeSize , M2DHudViewEdgeSize )];
 		
-		CGRect frame = [[UIScreen mainScreen] bounds];
-		self.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+		UIViewController *viewController = [[[UIApplication sharedApplication] windows][0] rootViewController];
+		self.center = viewController.view.center;
 		
 		mainView_.backgroundColor = [UIColor clearColor];
 		contentView_.backgroundColor = [UIColor clearColor];
@@ -150,24 +150,24 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	return self;
 }
 
-- (void)show:(UIView *)view
+- (void)show
 {
-	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-	[[window subviews][0] addSubview:self];
-	[self transform];
+	UIViewController *viewController = [[[UIApplication sharedApplication] windows][0] rootViewController];
+	[viewController.view addSubview:self];
+	[self execTransform];
 }
 
-- (void)show:(UIView *)view dismissAfterDelay:(NSTimeInterval)delay
+- (void)showWithDuration:(NSTimeInterval)duration
 {
-	_delay = delay;
-	[self show:view];
-	[self performSelector:@selector(dismiss) withObject:nil afterDelay:delay];
+	_delay = duration;
+	[self show];
+	[self performSelector:@selector(dismiss) withObject:nil afterDelay:duration];
 }
 
-- (void)show:(UIView *)view target:(id)target request:(NSURLRequest *)request
+- (void)showWithTarget:(id)target request:(NSURLRequest *)request
 {
 	self.delegate = target;
-	[self show:view];
+	[self show];
 	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	if (connection) {
 		if ([self.delegate respondsToSelector:@selector(M2DHVConnection:connectionDidStartLoading:)]) {
@@ -176,17 +176,17 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	}
 }
 
-- (void)show:(UIView *)view notificationWithTarget:(id)target
+- (void)showWithNotificationTarget:(id)target
 {
 	self.delegate = target;
-	[self show:view];
+	[self show];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDidCatch) name:M2DHudViewNotification object:self.delegate];
 }
 
 - (void)dismiss
 {
 	dismiss = YES;
-	[self transform];
+	[self execTransform];
 }
 
 - (void)dismiss:(NSTimeInterval)delay
@@ -265,7 +265,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:M2DHudViewNotification object:self.delegate];
 }
 
-- (void)transform
+- (void)execTransform
 {
 	M2DHudViewTransition t = self.transition;
 	

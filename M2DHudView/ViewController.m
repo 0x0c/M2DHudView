@@ -30,14 +30,14 @@
 - (IBAction)show:(id)sender
 {
 	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess];
-	[hud show:self.view dismissAfterDelay:3];
+	[hud showWithDuration:3];
 }
 
 - (IBAction)showWithUserInteractionLock:(id)sender
 {
 	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess];
 	[hud lockUserInteraction];
-	[hud show:self.view dismissAfterDelay:3];
+	[hud showWithDuration:3];
 }
 
 @end
