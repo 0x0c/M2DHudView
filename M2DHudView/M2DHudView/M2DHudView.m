@@ -8,7 +8,9 @@
 
 #import "M2DHudView.h"
 
-NSString *const M2DHudViewNotification = @"M2DHudViewNotification";
+static NSString *const M2DHudViewNotificationWithIdentifier = @"M2DHudViewNotificationWithIdentifier";
+static NSString *const M2DHudViewGlobalNotification = @"M2DHudViewGlobalNotification";
+NSString *const M2DHudViewIdentifier = @"M2DHudViewIdentifier";
 static CGFloat const M2DHudViewEdgeSize = 160.;
 static NSTimeInterval const M2DHudViewAnimationDuration = 0.3;
 static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
@@ -27,6 +29,16 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 @end
 
 @implementation M2DHudView
+
++ (void)sendNotificationWithIdentifier:(NSString *)identifier
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:M2DHudViewNotificationWithIdentifier object:nil userInfo:@{M2DHudViewIdentifier:identifier}];
+}
+
++ (void)sendGlobalNotification
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:M2DHudViewGlobalNotification object:nil];
+}
 
 - (id) init
 {
@@ -67,7 +79,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	return self;
 }
 
-- (id)initWithStyle:(M2DHudViewStyle)style
+- (id)initWithStyle:(M2DHudViewStyle)style title:(NSString *)title
 {
 	self = [self init];
 	if (self) {
@@ -80,7 +92,8 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.center = CGPointMake(image.center.x, image.center.y + 55);
-				[label setText:@"Success"];
+				[label setText:title?:@"Success"];
+				label.adjustsFontSizeToFitWidth = YES;
 				label.textColor = [UIColor whiteColor];
 				label.backgroundColor = [UIColor clearColor];
 				label.font = [UIFont fontWithName:@"Helvetica" size:15];
@@ -96,7 +109,8 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.center = CGPointMake(image.center.x, image.center.y + 55);
-				[label setText:@"Error"];
+				[label setText:title?:@"Error"];
+				label.adjustsFontSizeToFitWidth = YES;
 				label.textColor = [UIColor whiteColor];
 				label.backgroundColor = [UIColor clearColor];
 				label.font = [UIFont fontWithName:@"Helvetica" size:15];
@@ -113,7 +127,8 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 				UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 				label.textAlignment = NSTextAlignmentCenter;
 				label.center = CGPointMake(indicator.center.x, indicator.center.y + 55);
-				[label setText:@"Loading..."];
+				[label setText:title?:@"Loading..."];
+				label.adjustsFontSizeToFitWidth = YES;
 				label.textColor = [UIColor whiteColor];
 				label.backgroundColor = [UIColor clearColor];
 				label.font = [UIFont fontWithName:@"Helvetica" size:15];
@@ -150,6 +165,12 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	return self;
 }
 
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:M2DHudViewGlobalNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:M2DHudViewNotificationWithIdentifier object:nil];
+}
+
 - (void)show
 {
 	UIViewController *viewController = [[[UIApplication sharedApplication] windows][0] rootViewController];
@@ -180,7 +201,8 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 {
 	self.delegate = target;
 	[self show];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDidCatch) name:M2DHudViewNotification object:self.delegate];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDidCatch:) name:M2DHudViewNotificationWithIdentifier object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globalNotificationDidCatch:) name:M2DHudViewGlobalNotification object:nil];
 }
 
 - (void)dismiss
@@ -257,12 +279,20 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	}
 }
 
-- (void)notificationDidCatch
+- (void)notificationDidCatch:(NSNotification *)notification
 {
-	if ([self.delegate respondsToSelector:@selector(M2DHudViewNotificationDidCatch:)]) {
-		[self.delegate M2DHudViewNotificationDidCatch:self];
+	if ([notification.userInfo[M2DHudViewIdentifier] isKindOfClass:[NSString class]] && [notification.userInfo[M2DHudViewIdentifier] isEqualToString:self.identifier]) {
+		if ([self.delegate respondsToSelector:@selector(M2DHudViewNotificationDidCatch:)]) {
+			[self.delegate M2DHudViewNotificationDidCatch:self];
+		}
 	}
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:M2DHudViewNotification object:self.delegate];
+}
+
+- (void)globalNotificationDidCatch:(NSNotification *)notification
+{
+	if ([self.delegate respondsToSelector:@selector(M2DHudViewGlobalNotificationDidCatch:)]) {
+		[self.delegate M2DHudViewGlobalNotificationDidCatch:self];
+	}
 }
 
 - (void)execTransform

@@ -29,13 +29,13 @@
 
 - (IBAction)show:(id)sender
 {
-	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess];
+	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess title:nil];
 	[hud showWithDuration:3];
 }
 
 - (IBAction)showWithUserInteractionLock:(id)sender
 {
-	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess];
+	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess title:nil];
 	[hud lockUserInteraction];
 	[hud showWithDuration:3];
 }

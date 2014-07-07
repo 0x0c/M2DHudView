@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-extern NSString *const M2DHudViewNotification;
+extern NSString *const M2DHudViewIdentifier;
 
-typedef enum{
+enum{
 	M2DHudViewStyleSuccess = 0,
 	M2DHudViewStyleError,
 	M2DHudViewStyleLoading,
-} M2DHudViewStyle;
+};
+typedef NSInteger M2DHudViewStyle;
 
 enum{
 	M2DHudViewTransitionStartZoomOut		= 1 << 0,
@@ -32,8 +33,11 @@ typedef NSInteger M2DHudViewTransition;
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) NSInteger delay;
 @property (nonatomic, assign) M2DHudViewTransition transition;
+@property (nonatomic, copy) NSString *identifier;
 
-- (id)initWithStyle:(M2DHudViewStyle)style;
++ (void)sendNotificationWithIdentifier:(NSString *)identifier;
++ (void)sendGlobalNotification;
+- (id)initWithStyle:(M2DHudViewStyle)style title:(NSString *)title;
 - (id)initWithTemplate:(UIImage *)image title:(NSString *)title;
 - (void)show;
 - (void)showWithDuration:(NSTimeInterval)duration;
@@ -43,7 +47,6 @@ typedef NSInteger M2DHudViewTransition;
 - (void)dismiss:(NSTimeInterval)delay;
 - (void)resetContentView;
 - (void)setHudStyle:(M2DHudViewStyle)style;
-- (void)notificationDidCatch;
 - (void)execTransform;
 - (void)lockUserInteraction;
 - (void)showBackgroundView;
@@ -65,5 +68,6 @@ typedef NSInteger M2DHudViewTransition;
 
 @optional
 - (void)M2DHudViewNotificationDidCatch:(M2DHudView *)hudView;
+- (void)M2DHudViewGlobalNotificationDidCatch:(M2DHudView *)hudView;
 
 @end
