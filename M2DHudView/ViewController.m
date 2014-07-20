@@ -33,6 +33,24 @@
 	[hud showWithDuration:3];
 }
 
+- (IBAction)showWithLoadingAlert:(id)sender
+{
+	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleLoading title:@"Loading"];
+	[hud showWithDuration:3];
+}
+
+- (IBAction)showWithError:(id)sender
+{
+	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleError title:@"Error"];
+	[hud showWithDuration:3];
+}
+
+- (IBAction)showWithCustomText:(id)sender
+{
+	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess title:@"Custom text"];
+	[hud showWithDuration:3];
+}
+
 - (IBAction)showWithUserInteractionLock:(id)sender
 {
 	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess title:nil];

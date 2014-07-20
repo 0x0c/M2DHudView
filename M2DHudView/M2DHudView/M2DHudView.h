@@ -46,7 +46,7 @@ typedef NSInteger M2DHudViewTransition;
 - (void)dismiss;
 - (void)dismiss:(NSTimeInterval)delay;
 - (void)resetContentView;
-- (void)setHudStyle:(M2DHudViewStyle)style;
+- (void)setHudStyle:(M2DHudViewStyle)style title:(NSString *)title;
 - (void)execTransform;
 - (void)lockUserInteraction;
 - (void)showBackgroundView;

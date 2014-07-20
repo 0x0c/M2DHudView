@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,18 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baz-UP-OOA">
-                                <rect key="frame" x="54" y="311" width="213" height="30"/>
-                                <state key="normal" title="show with user interaction lock">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="showWithUserInteractionLock:" destination="2" eventType="touchUpInside" id="Hkg-Sm-tIp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-dp-OO9">
-                                <rect key="frame" x="142" y="226" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2O-dp-OO9">
+                                <rect key="frame" x="101" y="320" width="118" height="30"/>
                                 <state key="normal" title="show">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -36,8 +25,61 @@
                                     <action selector="show:" destination="2" eventType="touchUpInside" id="Pln-fY-2LI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owe-22-WKI">
+                                <rect key="frame" x="102" y="358" width="117" height="30"/>
+                                <state key="normal" title="Loading">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showWithLoadingAlert:" destination="2" eventType="touchUpInside" id="Q0T-Ak-IAb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gX2-de-VYY">
+                                <rect key="frame" x="117" y="396" width="87" height="30"/>
+                                <state key="normal" title="Error">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showWithError:" destination="2" eventType="touchUpInside" id="QH5-jY-2ee"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evH-cf-hV8">
+                                <rect key="frame" x="100" y="434" width="121" height="30"/>
+                                <state key="normal" title="Custom text">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showWithCustomText:" destination="2" eventType="touchUpInside" id="Qq9-Vx-QN0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baz-UP-OOA">
+                                <rect key="frame" x="37" y="472" width="246" height="30"/>
+                                <state key="normal" title="show with user interaction lock">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showWithUserInteractionLock:" destination="2" eventType="touchUpInside" id="Hkg-Sm-tIp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="a2O-dp-OO9" secondAttribute="trailing" constant="101" id="Df6-mq-fvp"/>
+                            <constraint firstItem="evH-cf-hV8" firstAttribute="top" secondItem="gX2-de-VYY" secondAttribute="bottom" constant="8" id="Fxw-eb-vBT"/>
+                            <constraint firstItem="baz-UP-OOA" firstAttribute="top" secondItem="evH-cf-hV8" secondAttribute="bottom" constant="8" id="MeH-iZ-lIB"/>
+                            <constraint firstAttribute="trailing" secondItem="evH-cf-hV8" secondAttribute="trailing" constant="99" id="Q6Z-y8-a6O"/>
+                            <constraint firstItem="baz-UP-OOA" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="37" id="RM1-VR-D3z"/>
+                            <constraint firstAttribute="trailing" secondItem="gX2-de-VYY" secondAttribute="trailing" constant="116" id="YM5-c7-HyD"/>
+                            <constraint firstItem="S8w-ms-QGn" firstAttribute="top" secondItem="baz-UP-OOA" secondAttribute="bottom" constant="66" id="YMk-Rf-9V3"/>
+                            <constraint firstAttribute="trailing" secondItem="owe-22-WKI" secondAttribute="trailing" constant="101" id="a1P-X4-0QB"/>
+                            <constraint firstItem="owe-22-WKI" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="102" id="erC-mT-GVj"/>
+                            <constraint firstItem="evH-cf-hV8" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="100" id="f8v-uY-xEl"/>
+                            <constraint firstItem="owe-22-WKI" firstAttribute="top" secondItem="a2O-dp-OO9" secondAttribute="bottom" constant="8" id="iCs-69-2BM"/>
+                            <constraint firstItem="a2O-dp-OO9" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="101" id="jxh-qy-ING"/>
+                            <constraint firstAttribute="trailing" secondItem="baz-UP-OOA" secondAttribute="trailing" constant="37" id="paS-aV-X2f"/>
+                            <constraint firstItem="gX2-de-VYY" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="117" id="sAr-zI-V5h"/>
+                            <constraint firstItem="gX2-de-VYY" firstAttribute="top" secondItem="owe-22-WKI" secondAttribute="bottom" constant="8" id="wyF-rf-K2c"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
