@@ -37,15 +37,14 @@ typedef NSInteger M2DHudViewTransition;
 
 + (void)sendNotificationWithIdentifier:(NSString *)identifier;
 + (void)sendGlobalNotification;
++ (void)dismissWithIdentifier:(NSString *)identifier;
 - (id)initWithStyle:(M2DHudViewStyle)style title:(NSString *)title;
-- (id)initWithTemplate:(UIImage *)image title:(NSString *)title;
+- (id)initWithImage:(UIImage *)image title:(NSString *)title;
 - (void)show;
 - (void)showWithDuration:(NSTimeInterval)duration;
 - (void)showWithTarget:(id)target request:(NSURLRequest *)request;
-- (void)showWithNotificationTarget:(id)target;
 - (void)dismiss;
 - (void)dismiss:(NSTimeInterval)delay;
-- (void)resetContentView;
 - (void)setHudStyle:(M2DHudViewStyle)style title:(NSString *)title;
 - (void)execTransform;
 - (void)lockUserInteraction;

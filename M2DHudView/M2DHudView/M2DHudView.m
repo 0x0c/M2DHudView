@@ -10,6 +10,7 @@
 
 static NSString *const M2DHudViewNotificationWithIdentifier = @"M2DHudViewNotificationWithIdentifier";
 static NSString *const M2DHudViewGlobalNotification = @"M2DHudViewGlobalNotification";
+static NSString *const M2DHudViewDismissNotification = @"M2DHudViewDismissNotification";
 NSString *const M2DHudViewIdentifier = @"M2DHudViewIdentifier";
 static CGFloat const M2DHudViewEdgeSize = 160.;
 static NSTimeInterval const M2DHudViewAnimationDuration = 0.3;
@@ -38,6 +39,11 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 + (void)sendGlobalNotification
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:M2DHudViewGlobalNotification object:nil];
+}
+
++ (void)dismissWithIdentifier:(NSString *)identifier
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:M2DHudViewDismissNotification object:@{M2DHudViewIdentifier:identifier}];
 }
 
 - (id) init
@@ -74,6 +80,11 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 		
 		[super addSubview:mainView_];
 		self.transition = M2DHudViewTransitionStartFadeIn | M2DHudViewTransitionEndFadeOut;
+		
+		self.identifier = [[NSProcessInfo processInfo] globallyUniqueString];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDidCatch:) name:M2DHudViewNotificationWithIdentifier object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globalNotificationDidCatch:) name:M2DHudViewGlobalNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissNotification:) name:M2DHudViewDismissNotification object:nil];
 	}
 	
 	return self;
@@ -89,7 +100,7 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	return self;
 }
 
-- (id)initWithTemplate:(UIImage *)image title:(NSString *)title
+- (id)initWithImage:(UIImage *)image title:(NSString *)title
 {
 	self = [self init];
 	if (self) {
@@ -142,14 +153,6 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 	}
 }
 
-- (void)showWithNotificationTarget:(id)target
-{
-	self.delegate = target;
-	[self show];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDidCatch:) name:M2DHudViewNotificationWithIdentifier object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(globalNotificationDidCatch:) name:M2DHudViewGlobalNotification object:nil];
-}
-
 - (void)dismiss
 {
 	dismiss = YES;
@@ -159,6 +162,14 @@ static CGFloat const M2DHudViewBackgroundAlpha = 0.7;
 - (void)dismiss:(NSTimeInterval)delay
 {
 	[self performSelector:@selector(dismiss) withObject:nil afterDelay:delay];
+}
+
+- (void)dismissNotification:(NSNotification *)notification
+{
+	NSString *identifier = [notification.userInfo objectForKey:M2DHudViewIdentifier];
+	if ([identifier isEqualToString:self.identifier]) {
+		[self dismiss];
+	}
 }
 
 - (void)resetContentView
