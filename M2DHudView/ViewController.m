@@ -58,4 +58,16 @@
 	[hud showWithDuration:3];
 }
 
+- (IBAction)showWithCustomTransition:(id)sender
+{
+	M2DHudView *hud = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess title:@"transition1"];
+	hud.transition = M2DHudViewTransitionStartZoomOut | M2DHudViewTransitionEndZoomIn;
+	[hud showWithDuration:2];
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		M2DHudView *hud2 = [[M2DHudView alloc] initWithStyle:M2DHudViewStyleSuccess title:@"transition2"];
+		hud2.transition = M2DHudViewTransitionStartFadeIn | M2DHudViewTransitionEndZoomOut;
+		[hud2 showWithDuration:2];
+	});
+}
+
 @end
